@@ -1,25 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./index.css";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <TipCalculator />
     </div>
   );
 }
 
-export default App;
+function TipCalculator() {
+  const [billvalue, setBillvalue] = useState("");
+
+  const [percent, setPercent] = useState(0);
+
+  function handleReset() {
+    setBillvalue("");
+    setPercent(0);
+  }
+
+  return (
+    <div>
+      <BillInput billvalue={billvalue} setBillvalue={setBillvalue} />
+      <SelectPercentage percent={percent} setPercent={setPercent} />
+      <SelectPercentage percent={percent} setPercent={setPercent} />
+      <Output />
+      <Reset onReset={handleReset} />
+    </div>
+  );
+}
+
+function BillInput({ billvalue, setBillvalue }) {
+  return (
+    <div>
+      How much was the bill?
+      <input
+        type="value"
+        value={billvalue}
+        onChange={(e) => setBillvalue(e.target.value)}
+      />
+    </div>
+  );
+}
+
+function SelectPercentage() {}
+
+function Output() {}
+
+function Reset({ onReset }) {
+  return <button onClick={onReset}>Reset</button>;
+}
